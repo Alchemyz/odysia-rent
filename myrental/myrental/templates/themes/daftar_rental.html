@@ -1,0 +1,219 @@
+{% extends "themes/home.html" %}
+{% load static %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Rental</title>
+</head>
+<body>
+    <section class="  d-flex align-items-center justify-content-center flex-column hero-section pb-5 " style="min-height: 100vh; padding-top: 150px;">
+        <div class="container search-container shadow-md mb-5">
+    <form action="#" method="GET" class="row g-0 align-items-center bg-white rounded-4 px-4 py-1">
+    
+        <div class="col-md-3 border-end px-3">
+    <label class="form-label small text-muted mb-0 ps-2">Pilih tanggal...</label>
+    <div class="d-flex align-items-center cursor-pointer" id="calendarTrigger" style="cursor: pointer;">
+        <input type="text" id="tanggal" name="tanggal" 
+               class="form-control border-0 shadow-none bg-transparent" 
+               placeholder="Pilih tanggal..." readonly>
+    </div>
+</div>
+
+       <div class="col-md-3 border-end px-3">
+            <label class="form-label small text-muted mb-0 ps-2">Pilih waktu...</label>
+            <div id="waktuTrigger" class="form-control border-0 shadow-none bg-transparent" 
+            data-bs-toggle="modal" data-bs-target="#waktuModal" style="cursor: pointer;">
+            <span id="waktuText">05:00</span>
+            </div>
+             <input type="hidden" id="waktu" name="waktu" value="05:00">
+        </div>
+
+        <div class="col-md-2 px-3">
+            <label class="form-label small text-muted mb-0 ps-2">Durasi sewa...</label>
+            <div id="durasiTrigger" class="form-control border-0 shadow-none bg-transparent cursor-pointer" 
+            data-bs-toggle="modal" data-bs-target="#durasiModal" style="cursor: pointer;">
+             <span id="durasiText">1 Hari</span>
+            </div>
+            <input type="hidden" id="durasiInput" name="durasi" value="1">
+        </div>
+
+        <div class="col-md-4 d-flex gap-2 justify-content-end">
+            <button type="button" class="btn btn-all rounded-3 px-4 py-1 " data-bs-toggle="modal" data-bs-target="#filterModal" >
+                <i class="fa-solid fa-filter me-2"></i><span class="text-white fw-bold">Filter</span>
+            </button>
+            <button type="submit" class="btn btn-all rounded-3 px-4 py-1 text-white fw-bold ">
+                Cari
+            </button>
+        </div>
+    </form>
+</div>
+<div class="container">
+    <div class="row g-4">
+       {% for k in kendaraan %}
+    <div class="col-lg-3 col-md-6 col-12 d-flex justify-content-center  ">
+        <div class="card h-100 p-3 font-madimi rounded-4" >
+            <p class="fw-semibold font-madimi mb-0 text-uppercase">{{k.model}}</p>
+            {%if k.gambar %}
+            <img src="{{k.gambar.url}}" alt="kendaraan" class="img-fluid" >
+            {% endif %}
+            <div class="d-flex justify-content-between flex-wrap gap-2">
+                <div class="d-flex align-items-center">
+                    <i class="fa-solid fa-gas-pump me-1"></i>
+                    <span>{{k.bahan_bakar}}</span>
+                </div>
+                <div class="d-flex align-items-center">
+                    <i class="fa-solid fa-gear me-1"></i>
+                    <span>{{k.transmisi}}</span>
+                </div>
+                <div class="d-flex align-items-center">
+                    <i class="fa-solid fa-users me-1"></i>
+                    <span>{{k.kapasitas}} orang</span>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between  align-items-center mt-auto">
+                <p class="mb-0 ">Rp {{k.harga_per_hari}}/hari</p>
+                <a href="{% url 'detail_rental' k.slug %}" class="btn btn-all text-white btn-sm  rounded-3 px-3">Detail</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+   </div>
+</div>
+    </section>
+    <!-- filter -->
+      <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content shadow-lg" style="border-radius: 25px;">
+            
+            <div class="modal-header border-0 px-4 pt-4">
+                <h5 class="modal-title mx-auto fw-bold" id="filterModalLabel">Filter</h5>
+                <button type="button" class="btn-close ms-0" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            <hr class="mx-4 my-0">
+
+            <div class="modal-body px-4 pb-4">
+                <form id="filterForm" method="GET" action="{% url 'daftar_rental' %}">
+                    
+                    <div class="py-3 border-bottom">
+                        <label class="fw-bold mb-3 d-block">Urutkan</label>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="radio" name="urutkan" id="sortLow" value="rendah">
+                            <label class="form-check-label w-100 d-flex justify-content-between" for="sortLow">
+                                Harga Terendah <span class="text-muted">○</span>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="urutkan" id="sortHigh" value="tinggi">
+                            <label class="form-check-label w-100 d-flex justify-content-between" for="sortHigh">
+                                Harga Tertinggi <span class="text-muted">○</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="py-3 border-bottom">
+                        <label class="fw-bold mb-3 d-block">Transmisi</label>
+                        <div class="d-flex gap-2">
+                            <input type="radio" class="btn-check" name="transmisi" id="trans1" value="Matic">
+                            <label class="btn border-0 flex-fill rounded-3 py-1 input-filter" for="trans1">Matic</label>
+
+                            <input type="radio" class="btn-check" name="transmisi" id="trans2" value="Manual">
+                            <label class="btn border-0 flex-fill rounded-3 py-1 input-filter" for="trans2">Manual</label>
+                        </div>
+                    </div>
+
+                    <div class="py-3 border-bottom">
+                        <label class="fw-bold mb-3 d-block">Kapasitas Kursi</label>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input type="radio" class="btn-check" name="kapasitas" id="cap1" value="under_5">
+                            <label class="btn btn-outline-secondary flex-fill rounded-pill py-2" for="cap1">&lt; 5 Penumpang</label>
+
+                            <input type="radio" class="btn-check" name="kapasitas" id="cap2" value="5_6">
+                            <label class="btn btn-outline-secondary flex-fill rounded-pill py-2" for="cap2">5-6 Penumpang</label>
+
+                            <input type="radio" class="btn-check" name="kapasitas" id="cap3" value="over_6">
+                            <label class="btn btn-outline-secondary flex-fill rounded-pill py-2" for="cap3">&gt; 6 Penumpang</label>
+                        </div>
+                    </div>
+
+                    <div class="py-3 mb-3">
+                        <label class="fw-bold d-block">Harga</label>
+                        <small class="text-muted d-block mb-3">Mulai dari IDR 250.750 - IDR 1.500.000</small>
+                        <div class="row g-3">
+                            <div class="col">
+                                <input type="number" name="min" class="form-control input-filter border-0 py-2" placeholder="min...">
+                            </div>
+                            <div class="col">
+                                <input type="number" name="max" class="form-control input-filter border-0 py-2" placeholder="max...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-all d-block mx-auto text-white py-1 fw-bold rounded-3 shadow-sm" style=" border: none;">
+                        Simpan
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal untuk memunculkan pop up waktu -->
+<div class="modal fade" id="waktuModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered " style="max-width: 400px;">
+        <div class="modal-content rounded-4 border-0 shadow">
+            <div class="modal-body p-4">
+                <h6 class="fw-bold">Pilih Waktu Penjemputan</h6>
+                <p class="text-muted small mb-4">Waktu yang dipilih sesuai dengan waktu setempat di lokasi sewa.</p>
+                
+                <div class="d-flex justify-content-center align-items-center gap-5 mb-4">
+                    <div class="text-center">
+                        <button class="btn btn-link link-dark p-0" onclick="changeTime('jam', 1)"><i class="fa-solid fa-chevron-up"></i></button>
+                        <div id="displayJam" class="fs-1 fw-bold my-2">05</div>
+                        <button class="btn btn-link link-dark p-0" onclick="changeTime('jam', -1)"><i class="fa-solid fa-chevron-down"></i></button>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button class="btn btn-link link-dark p-0" onclick="changeTime('menit', 15)"><i class="fa-solid fa-chevron-up"></i></button>
+                        <div id="displayMenit" class="fs-1 fw-bold my-2">00</div>
+                        <button class="btn btn-link link-dark p-0" onclick="changeTime('menit', -15)"><i class="fa-solid fa-chevron-down"></i></button>
+                    </div>
+                </div>
+
+                <p class="text-muted small mb-4">*Pemesanan sewa mobil minimal dilakukan 3 jam sebelum waktu penjemputan.</p>
+                <hr>
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn  btn-all  rounded-3 text-white fw-bold py-1" onclick="simpanWaktu()">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal untuk durasi -->
+<div class="modal fade" id="durasiModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content rounded-4 shadow border-0">
+            <div class="modal-header border-0 pb-0">
+                <h6 class="fw-bold mb-0">Pilih Durasi Sewa</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body py-3" style="max-height: 400px; overflow-y: auto;">
+                <p class="text-muted small mb-3">Waktu yang dipilih sesuai dengan waktu setempat di lokasi sewa.</p>
+                
+                <div id="listDurasi" class="list-group list-group-flush">
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/script.js' %}">
+ 
+</script>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,146 @@
+{% load cms_tags sekizai_tags %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rental Mobil Lombok</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jockey+One&family=Kay+Pho+Du:wght@400;500;600;700&family=Keania+One&family=Kite+One&family=Madimi+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+     {% render_block "css" %}
+  </head>
+  <body >
+    <nav class="container rounded-5 mt-5 navbar  navbar-expand-lg  fixed-top   ">
+      <div class="container ">
+        <a href="" class=" d-flex align-items-center " >
+        <img src="{% static 'img/logo.png'%}" alt="logo rental" style="max-width: 70px; max-height: 70px; ">
+      </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center  " id="navbarNavAltMarkup">
+          <div class="navbar-nav  ">
+            <a class="nav-link active text-black" aria-current="page" href="{% url 'home' %}">BERANDA</a>
+            <a class="nav-link text-black " href="#tentang">TENTANG KAMI</a>
+            <a class="nav-link text-black" href="#rental">RENTAL MOBIL</a>
+            <a class="nav-link text-black" href="#syarat">SYARAT & KETENTUAN</a>
+            <a class="nav-link text-black" href="#kontak">KONTAK</a>
+          </div>
+        </div>
+       <div class="d-flex align-items-center">
+            {% if user.is_authenticated %}
+            <div class="dropdown">
+                <a class="nav-link d-flex align-items-center gap-2 pointer shadow-none" 
+                  id="userDropdown" 
+                  role="button" 
+                  data-bs-toggle="dropdown" 
+                  aria-expanded="false">
+                    <i class="fa-regular fa-circle-user fs-2"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-4 mt-3" aria-labelledby="userDropdown">
+                    <li class="px-3 py-2 border-bottom mb-2">
+                        <span class="d-block small text-muted">Halo,</span>
+                        <span class="fw-semibold fs-5" style="letter-spacing: 0.10em;">{{ user.username }}</span>
+                    </li>
+                    <li>
+                        <a class="dropdown-item py-2 px-3 rounded-3 fw-semibold" href="{% url 'profil' %}">
+                            <i class="fa-regular fa-user me-2 "></i> Profil Saya
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a class="dropdown-item py-2 px-3 rounded-3 text-danger fw-bold" href="{% url 'logout' %}">
+                            <i class="fa-solid fa-right-from-bracket me-2"></i> Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            {% else %}
+            <a href="{% url 'login' %}" class="btn btn-all rounded-4 bg-white fw-bold me-2" style="color: #6D92DE;">
+                Masuk
+            </a>
+            <a href="{% url 'register' %}" class="btn btn-all fw-bold rounded-4 text-white">
+                Daftar
+            </a>
+            {% endif %}
+        </div>
+      </div>
+    </nav>
+    <main>
+    {% cms_toolbar %}
+    {% block content %}{% endblock %}
+    </main>
+    <hr class="border-3 container my-4">
+         <section id="kontak">
+           <div class="container ">
+             <div class="row ">
+               <div class="col-lg-7 col-md-6 col-sm-5">
+                   <img src="{% static 'img/logo.png ' %}" alt="logo" style="max-width: 100px;">
+                   <p class="fw-semibold">Odysia Rent </p>
+                   <p >Comfy. Safety. Reliability.</p>
+               </div>
+               <div class="col-lg-3 col-md-3 col-sm-4 ">
+                 <h4>Kontak</h4>
+                 <div class="d-flex align-items-start mt-3">
+                   <i class="fa-solid fa-location-dot "></i>
+                   <span class="px-2">Jl. Pattimura, Selong, Lombok Timur, Nusa Tenggara Barat</span>
+                 </div>
+                 <div class="d-flex align-items-start mt-3">
+                   <i class="fa-solid fa-phone"></i>
+                   <span class="px-2">+6285239132320 <br>+6287987654321</span>
+                 </div>
+                 <div class="d-flex align-items-start mt-3">
+                   <i class="fa-solid fa-envelope"></i>
+                   <span class="px-2">odysiasrentacar@gmail.com</span>
+                 </div>
+                 </div>
+               <div class="col-lg-2 col-md-3 col-sm-3">
+                 <h4>Ikuti Kami</h4>
+                 <div class="d-flex gap-3">
+                  <a href="#" class="sosmed"><i class="fa-brands fa-x-twitter fs-2"></i></a>
+                  <a href="#" class="sosmed"><i class="fa-brands fa-instagram fs-2"></i></a>
+                   <a href="#" class="sosmed"> <i class="fa-brands fa-square-facebook fs-2"></i></a>
+                  
+                 </div>
+               </div>
+             </div>
+           </div>
+         </section>
+         <hr class="border-3 container my-4">
+      <footer class="text-center">
+        <p>Copyright &copy;2025 All Rights reserved</p>
+      </footer>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+      integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/id.js"></script>
+  </body>
+</html>

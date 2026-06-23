@@ -1,0 +1,84 @@
+{% load cms_tags sekizai_tags %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAFTAR</title>
+     <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Freeman&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+     <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    {% render_block "css" %}
+</head>
+<body>
+    <section class="bg-login d-flex align-items-center justify-content-center min-vh-100">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-xl-8 ">
+                <div class="card card-login border-0 shadow-lg rounded-5  overflow-hidden">
+                    <div class="row g-0 bg-form ">
+                        
+                        <div class="col-md-6 custom-login p-5 d-flex flex-column rounded-5 align-items-center justify-content-center text-center text-white">
+                            <h2 class="fw-bold mb-3">WELCOME TO<br>ODYSIA RENT</h2>
+                            <p class="fst-italic mb-4 opacity-75">Log In now and start a journey through our site</p>
+                            <a href="{% url 'login' %}" class="btn btn-all px-5 py-2  rounded-4 text-white">Log In</a>
+                        </div>
+
+                        <div class="col-md-6   p-5 d-flex  flex-column justify-content-center">
+                            <div class="text-center mb-4">
+                                <h2 class="fw-bold">Daftar</h2>
+                                <p class="text-muted small">Register with E-mail</p>
+                            </div>
+
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                      {{ form.username }} 
+                                </div>
+                                <div class="mb-3 ">
+                                      {{ form.nama_lengkap }}
+                                </div>
+                                <div class="mb-3">
+                                      {{ form.no_hp }}
+                                </div>
+
+                                <div class="mb-3">
+                                       {{ form.email }}
+                                </div>
+                                <div class="mb-3">
+                                        {{ form.password }}
+                                </div>
+                                
+                                <button type="submit" class="btn text-white btn-all w-100 py-2 rounded-4  mb-4">Daftar</button>
+
+                                <!-- <div class="divider d-flex align-items-center mb-4 ">
+                                    <hr class="flex-grow-1 ">
+                                    <span class="mx-3 small text-muted">Or Log In with Google</span>
+                                    <hr class="flex-grow-1 ">
+                                </div>
+
+                                <button type="button" class="btn bg-white  rounded-4 shadow-sm w-100 py-2 text-dark d-flex align-items-center justify-content-center">
+                                    <img src="https://www.gstatic.com/images/branding/product/1x/googleg_48dp.png" height="20" class="me-2"> Google
+                                </button> -->
+                            </form>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

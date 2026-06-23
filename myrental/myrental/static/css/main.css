@@ -1,0 +1,130 @@
+body {
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    font-family: "Kay Pho Du";
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+.navbar {
+    background-color: #D5D9E6;
+}
+.hero-section {
+    background-color: #949cb3;
+}
+.nav-item {
+    background-color: #737bee ;
+}
+.nav-link:hover {
+   background-color: #F0F3FC ;
+   border-radius: 30px;
+}
+.img-logo {
+    max-height: 100px;
+    width: auto;
+}
+.font-kite {
+    font-family: "Kite One";
+}
+.font-madimi {
+    font-family: "Madimi One";
+}
+.font-keania {
+    font-family: "Keania One";
+}
+.font-jockey {
+    font-family: "Jockey One";
+}
+.font-freeman {
+    font-family: "Freeman", sans-serif;
+}
+.section-syarat {
+    background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), 
+                url('../img/bg-syarat.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+.bg-syarat {
+    background-color: rgba(200, 208, 235, 0.7); /* Warna biru muda transparan sesuai gambar */
+    border-radius: 40px; /* Sudut melengkung besar sesuai referensi */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.bg-syarat2 {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 40px;
+}
+.bg-daftar {
+    background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), 
+                url('../img/bg-daftar.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+.bg-login {
+    background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), 
+                url('../img/bg-login.webp');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    font-family: "Freeman", sans-serif;
+}
+.btn-all {
+    background-color: #6D92DE;
+    transition: 0.5;
+}
+
+    
+.btn-all:hover {
+    background-color: #5b67a1;
+    transform: scale(0.9);
+}
+.btn-filter {
+    background-color: #B9C8EA;
+}
+.btn-filter:hover {
+    background-color: #5b67a1;
+    transform: scale(0.9);
+}
+
+.input-filter {
+    background-color: #CDDBF8;
+}
+.input-filter:checked {
+    background-color: red !important;
+}
+.sosmed {
+    text-decoration: none;
+    color: #333;
+}
+.bg-form {
+   background-color: rgba(255, 255, 255, 0.6) !important; /* Putih transparan 60% */
+    backdrop-filter: blur(2px); 
+    -webkit-backdrop-filter: blur(10px);
+}
+.card-login {
+     background: transparent !important;
+}
+.custom-login {
+   background-color: #D0D8E9;
+   backdrop-filter: blur(5px);
+}
+.custom-login::placeholder {
+     color: #a0aec0;
+}
+.custom-upload-group {
+    background-color: #f8f9fa; /* Warna bg-light */
+    border: none;
+}
+
+/* Mengatur tampilan teks di dalam input file */
+.custom-file-input::file-selector-button {
+    background-color: transparent;
+    border: none;
+    font-weight: bold;
+    color: #555;
+    margin-right: 10px;
+    padding: 0.2rem 0.5rem;
+    cursor: pointer;
+}
